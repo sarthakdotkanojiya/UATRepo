@@ -1,0 +1,9 @@
+.github/workflows/cicdtest.yml
+ignorefile
+testclassess_production
+.github/workflows/*.yml
+testclassess_sprint
+test.sh
+TestClassess
+force-app/main/default/lwc/jsconfig.json
+dxUtil/*

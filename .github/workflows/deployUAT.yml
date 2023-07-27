@@ -1,0 +1,39 @@
+#Created By- Aditya Pradhan 10/05/23
+
+name: Deploy Master
+
+# Controls when the action will run.
+on:
+  push:
+    branches: master
+    paths-ignore:
+        - ".github/workflows/*"
+   
+ 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install Salesforce CLI
+        run: |
+          npm install sfdx-cli -g
+          pip install xq
+          pip install yq
+      - name: Install sfdxGit delta
+        run: |
+          echo y | sfdx plugins:install sfdx-git-delta
+          sfdx sgd:source:delta --to "HEAD" --from "HEAD^"  --ignore ignorefile --output "."
+          cat package/package.xml
+          chmod 777 generateTestClass.sh
+          ./generateTestClass.sh
+      - uses: sfdx-actions/setup-sfdx@v1
+        with:
+          sfdx-auth-url: ${{ secrets.AUTH_SECRET_UAT }}
+      - name: 'Running checks'
+        run: |
+          concatinatedTestClass=$(cat TestClassess)
+          chmod -R +x ./dxUtil
+          ./dxUtil/runSfdxConditionally.sh -x package/package.xml -c "--uatDeploy" -r "$concatinatedTestClass" -u ${{ secrets.USERNAME_UAT }} -w 240

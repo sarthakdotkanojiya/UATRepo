@@ -31,9 +31,9 @@ jobs:
           ./generateTestClass.sh
       - uses: sfdx-actions/setup-sfdx@v1
         with:
-          sfdx-auth-url: ${{ secrets.AUTH_SECRET_SF_MASTER }}
+          sfdx-auth-url: ${{ secrets.AUTH_SECRET_UAT }}
       - name: 'Running checks'
         run: |
           concatinatedTestClass=$(cat TestClassess)
           chmod -R +x ./dxUtil
-          ./dxUtil/runSfdxConditionally.sh -x package/package.xml -c "--uatDeploy" -r "$concatinatedTestClass" -u ${{ secrets.USERNAME_SF_DEPLOYMENT }} -w 240
+          ./dxUtil/runSfdxConditionally.sh -x package/package.xml -c "--uatDeploy" -r "$concatinatedTestClass" -u ${{ secrets.USERNAME_UAT }} -w 240

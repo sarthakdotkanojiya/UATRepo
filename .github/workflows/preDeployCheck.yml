@@ -5,7 +5,7 @@ name: Validate Deployment
 # Controls when the action will run.
 on:
   pull_request:
-    branches: master
+    branches: uatEnv
     paths-ignore:
       - ".github/workflows/*"
 

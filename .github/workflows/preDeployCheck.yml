@@ -68,4 +68,4 @@ jobs:
           ./generateTestClass.sh
       - uses: sfdx-actions/setup-sfdx@v1
         with:
-          sfdx-auth-url: ${{ secrets.AUTH_SECRET_SF_MASTER }}
+          sfdx-auth-url: ${{ secrets.AUTH_SECRET_UAT }}

@@ -5,7 +5,7 @@ name: Deploy Master
 # Controls when the action will run.
 on:
   push:
-    branches: master
+    branches: uatEnv
     paths-ignore:
         - ".github/workflows/*"
    
